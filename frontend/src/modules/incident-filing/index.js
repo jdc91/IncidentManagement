@@ -3,16 +3,18 @@ import { Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import DomainContainer from '../../components/DomainContainer';
 import IncidentForm from '../../components/IncidentForm';
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import { withStyles } from '@material-ui/core/styles';
-
+import Link from 'react-router-dom/Link';
+import ReviewIncidentListView from './ReviewIncidentListView';
+import ReviewIncidentView from './ReviewIncidentView';
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -53,18 +55,23 @@ class Report extends Component {
     
 
     render(){
-        const { classes, theme } = this.props;
+        const { classes, theme, match } = this.props;
         const drawer = (
             <div>
-                <div className={classes.toolbar} />
                 <Divider />
                 <List>
-                {['Home','Report Incident', 'View Incidents', 'Approve Incident'].map((text, index) => (
-                    <ListItem button key={text}>
-                    <ListItemIcon><MailIcon /></ListItemIcon>
-                    <ListItemText primary={text} />
+                  <Link to={`${match.url}`}>
+                    <ListItem button key={'New'}>
+                      <ListItemIcon><MailIcon /></ListItemIcon>
+                      <ListItemText primary={'New'} />
                     </ListItem>
-                ))}
+                  </Link>
+                  <Link to={`${match.url}/reviews`}>
+                    <ListItem button key={'Review Incident'}>
+                      <ListItemIcon><MailIcon /></ListItemIcon>
+                      <ListItemText primary={'Review Incident'} />
+                    </ListItem>
+                  </Link>
                 </List>
             </div>
         );
@@ -89,7 +96,13 @@ class Report extends Component {
                 </Typography>
             }
             content={()=>(
-                <IncidentForm user={user}/>
+                <React.Fragment>
+                  <Route exact path={`${match.url}/`} component={IncidentForm} />
+                  <Route exact path={`${match.url}/reviews`} component={ReviewIncidentListView} />
+                  <Route exact path={`${match.url}/reviews/:reviewId`} component={ReviewIncidentView} />
+
+                </React.Fragment>
+                
             )}
             drawer={drawer}
 
