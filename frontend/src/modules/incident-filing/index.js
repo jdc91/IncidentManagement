@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import DomainContainer from '../../components/DomainContainer';
+<<<<<<< HEAD
 import IncidentForm from '../../components/IncidentForm';
 import { Route, BrowserRouter as Router } from "react-router-dom";
+=======
+import IncidentForm from './containers/IncidentForm';
+>>>>>>> upstream/master
 
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -11,6 +15,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
+import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 import { withStyles } from '@material-ui/core/styles';
 import Link from 'react-router-dom/Link';
 import ReviewIncidentListView from './ReviewIncidentListView';
@@ -60,7 +68,25 @@ class Report extends Component {
             <div>
                 <Divider />
                 <List>
-                  <Link to={`${match.url}`}>
+                {/* {['Home','Report Incident', 'View Incidents', 'Approve Incident'].map((text, index) => (
+                    <ListItem button key={text}>
+                    <ListItemIcon><MailIcon /></ListItemIcon>
+                    <ListItemText primary={text} />
+                    </ListItem>
+                ))} */}
+                <ListItem button >
+                    <ListItemIcon><AssignmentLateIcon /></ListItemIcon>
+                    <ListItemText primary='Report Incident' />
+                </ListItem>
+                <ListItem button >
+                    <ListItemIcon><AssignmentIcon /></ListItemIcon>
+                    <ListItemText primary='View Incident' />
+                </ListItem>
+                <ListItem button >
+                    <ListItemIcon><CheckCircleIcon /></ListItemIcon>
+                    <ListItemText primary='Approve Incident' />
+                </ListItem>
+                <Link to={`${match.url}`}>
                     <ListItem button key={'New'}>
                       <ListItemIcon><MailIcon /></ListItemIcon>
                       <ListItemText primary={'New'} />
@@ -73,6 +99,7 @@ class Report extends Component {
                     </ListItem>
                   </Link>
                 </List>
+                
             </div>
         );
 
