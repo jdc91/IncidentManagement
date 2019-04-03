@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Typography } from '@material-ui/core';
 import { FormattedMessage } from 'react-intl';
 import DomainContainer from '../../components/DomainContainer';
-<<<<<<< HEAD
-import IncidentForm from '../../components/IncidentForm';
 import { Route, BrowserRouter as Router } from "react-router-dom";
-=======
 import IncidentForm from './containers/IncidentForm';
->>>>>>> upstream/master
 
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -124,11 +120,12 @@ class Report extends Component {
             }
             content={()=>(
                 <React.Fragment>
-                  <Route exact path={`${match.url}/`} component={IncidentForm} />
+                  <Route exact path={`${match.url}/`} component={()=> <IncidentForm user={user} paramIncidentId={this.props.match.params.paramIncidentId} />} />
                   <Route exact path={`${match.url}/reviews`} component={ReviewIncidentListView} />
                   <Route exact path={`${match.url}/reviews/:reviewId`} component={ReviewIncidentView} />
 
                 </React.Fragment>
+                
                 
             )}
             drawer={drawer}
